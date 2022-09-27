@@ -1029,9 +1029,7 @@ extension CalendarView: WidthDependentIntrinsicContentHeightProviding {
     guard let visibleItemsDetails = visibleItemsDetails else {
       return CGSize(width: UIView.noIntrinsicMetric, height: UIView.noIntrinsicMetric)
     }
-
-    let height = visibleItemsDetails.maxMonthHeight + visibleItemsDetails.heightOfPinnedContent
-    return CGSize(width: UIView.noIntrinsicMetric, height: height)
+    return CGSize(width: UIView.noIntrinsicMetric, height: UIView.noIntrinsicMetric)
   }
 
 }
