@@ -269,7 +269,7 @@ final class FrameProvider {
   {
     switch content.monthsLayout {
     case .vertical(let options):
-        let additionalOffset = ((options.pinDaysOfWeekToTop || options.hideDaysOfWeek) ? daySize.height : 0)
+      let additionalOffset = (options.pinDaysOfWeekToTop ? daySize.height : 0)
       let minY = offset.y + additionalOffset
       let maxY = offset.y + size.height
       let firstFullyVisibleY = minY
