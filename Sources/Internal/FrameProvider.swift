@@ -269,7 +269,7 @@ final class FrameProvider {
   {
     switch content.monthsLayout {
     case .vertical(let options):
-      let additionalOffset = (options.pinDaysOfWeekToTop ? daySize.height : 0)
+        let additionalOffset = ((options.pinDaysOfWeekToTop || !options.hideDaysOfWeek) ? daySize.height : 0)
       let minY = offset.y + additionalOffset
       let maxY = offset.y + size.height
       let firstFullyVisibleY = minY
@@ -432,7 +432,7 @@ final class FrameProvider {
   // days in each month. The returned value will be `0` if
   // `monthsLayout.pinDaysOfWeekToTop == true`.
   private func heightOfDaysOfTheWeekRowInMonth() -> CGFloat {
-    monthsLayout.pinDaysOfWeekToTop ? 0 : (daySize.height + content.verticalDayMargin)
+      (monthsLayout.pinDaysOfWeekToTop || monthsLayout.hideDaysOfWeek) ? 0 : (daySize.height + content.verticalDayMargin)
   }
 
 }

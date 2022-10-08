@@ -45,6 +45,13 @@ public enum MonthsLayout {
     case .horizontal: return false
     }
   }
+    
+  var hideDaysOfWeek: Bool {
+    switch self {
+    case .vertical(let options): return options.hideDaysOfWeek
+    case .horizontal: return false
+    }
+  }
 
   var alwaysShowCompleteBoundaryMonths: Bool {
     switch self {
@@ -99,16 +106,20 @@ public struct VerticalMonthsLayoutOptions: Equatable {
   /// - Parameters:
   ///   - pinDaysOfWeekToTop: Whether the days of the week will appear once, pinned at the top, or repeatedly in each month.
   ///   The default value is `false`.
+  ///   - hideDaysOfWeek: Whether to show days of the week in the calendar.
+  ///   The default value is `false`.
   ///   - alwaysShowCompleteBoundaryMonths: Whether the calendar will always show complete months, even if the visible
   ///   date range does not start on the first date or end on the last date of a month. The default value is `true`.
   ///   - scrollsToFirstMonthOnStatusBarTap: Whether the calendar should scroll to the first month when the system
   ///   status bar is tapped. The default value is `false`.
   public init(
     pinDaysOfWeekToTop: Bool = false,
+    hideDaysOfWeek: Bool = false,
     alwaysShowCompleteBoundaryMonths: Bool = true,
     scrollsToFirstMonthOnStatusBarTap: Bool = false)
   {
     self.pinDaysOfWeekToTop = pinDaysOfWeekToTop
+    self.hideDaysOfWeek = hideDaysOfWeek
     self.alwaysShowCompleteBoundaryMonths = alwaysShowCompleteBoundaryMonths
     self.scrollsToFirstMonthOnStatusBarTap = scrollsToFirstMonthOnStatusBarTap
   }
@@ -117,6 +128,9 @@ public struct VerticalMonthsLayoutOptions: Equatable {
 
   /// Whether the days of the week will appear once, pinned at the top, or repeatedly in each month.
   public let pinDaysOfWeekToTop: Bool
+    
+  /// Whether to show days of the week in the calendar.
+  public let hideDaysOfWeek: Bool
 
   /// Whether the calendar will always show complete months at the calendar's boundaries, even if the visible date range does not start
   /// on the first date or end on the last date of a month.

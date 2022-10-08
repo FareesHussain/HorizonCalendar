@@ -220,7 +220,7 @@ final class VisibleItemsProvider {
       })
 
     // Handle pinned day-of-week layout items
-    if case .vertical(let options) = content.monthsLayout, options.pinDaysOfWeekToTop {
+      if case .vertical(let options) = content.monthsLayout, options.pinDaysOfWeekToTop, !options.hideDaysOfWeek {
       handlePinnedDaysOfWeekIfNeeded(
         yContentOffset: bounds.minY,
         calendarItemModelCache: &calendarItemModelCache,
@@ -637,7 +637,7 @@ final class VisibleItemsProvider {
 
           // Create a visible item for the separator view, if needed.
           if
-            !content.monthsLayout.pinDaysOfWeekToTop,
+            (!content.monthsLayout.pinDaysOfWeekToTop || !content.monthsLayout.hideDaysOfWeek),
             let separatorOptions = content.daysOfTheWeekRowSeparatorOptions
           {
             let separatorItemType = VisibleCalendarItem.ItemType.daysOfWeekRowSeparator(month)
@@ -692,7 +692,7 @@ final class VisibleItemsProvider {
 
           // Take into account the pinned days of week header when determining the first visible day
           if
-            !content.monthsLayout.pinDaysOfWeekToTop ||
+            !content.monthsLayout.pinDaysOfWeekToTop || !content.monthsLayout.hideDaysOfWeek ||
             layoutItem.frame.maxY > (bounds.minY + frameProvider.daySize.height)
           {
             firstVisibleDay = min(firstVisibleDay ?? day, day)
@@ -730,7 +730,7 @@ final class VisibleItemsProvider {
       switch content.monthsLayout {
       case .vertical(let options):
         contentStartBoundary = monthFrame.minY -
-          (options.pinDaysOfWeekToTop ? frameProvider.daySize.height : 0)
+          ((options.pinDaysOfWeekToTop || !options.hideDaysOfWeek) ? frameProvider.daySize.height : 0)
       case .horizontal:
         contentStartBoundary = monthFrame.minX
       }
